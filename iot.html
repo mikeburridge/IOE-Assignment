@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <charset = "UTF-8">
+      <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+                <link type="text/css" rel="stylesheet" href="
+                https://pubnub.github.io/eon/v/eon/1.0.0/eon.css"/>
+    <title> IOE Assignment </title>
+  </head>
+
+<header> UWE | Recycling System </header>
+
+<body>
+
+  <div id = "chart"></div>
+  <script type="text/javascript">
+    var pubnub = new PubNub(
+      {
+        publishKey: "pub-c-c728d004-7b54-4b04-a93c-1258dac25849",
+        subscribeKey: "sub-c-a9cba9fe-ed7d-11e8-b085-b2b44c5b7fba"
+      }
+    );
+    var channel = "iotchannel";
+
+    pubnub.history(
+          {
+        	channel : channel,
+        	count : 36
+        },
+        function (status, response) {
+            console.log(response.messages);
+        }
+    );
+
+    eon.chart({
+      channels: [channel],
+      history: true,
+      flow: true,
+      pubnub: pubnub,
+      generate: {
+        bindto: '#chart',
+        data: {
+          type: 'spline',
+          labels: true
+        }
+      }
+    })
+
+
+
+  </script>
+
+
+</body>
+</html>
